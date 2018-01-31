@@ -1,8 +1,10 @@
 package no.sysco.middleware.scopt.dictionary
 
 import scala.io.StdIn
+import no.sysco.middleware.scopt.dictionary.Commands
 
 object Boot extends App {
+
 
   val appConfig: Config = Config.load()
   val dictionaryService: DictionaryService = new DictionaryService(appConfig)
@@ -10,7 +12,7 @@ object Boot extends App {
 
   while (true) {
     val command = StdIn.readLine()
-    Client.parser.parse(command.split(" "), ParserConfig()) match {
+    Commands.parser.parse(command.split(" "), Command()) match {
       case Some(c) => dictionaryService.build(c)
       case None => println("Bad Request")
     }
