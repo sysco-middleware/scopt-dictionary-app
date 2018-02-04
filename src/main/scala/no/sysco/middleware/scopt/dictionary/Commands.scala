@@ -32,8 +32,10 @@ object Commands {
       .action((_,c)=> c.copy(action = Option.apply(ADD)))
       .text(s"add key:value pair")
       .children(
-//        opt[Map[String,String]]("kwargs").valueName("k1=v1,k2=v2...").action( (x, c) =>
-//          c.copy(kwargs = x) ).text("other arguments")
+        opt[Map[String,String]]("words")
+          .valueName("k1=v1,k2=v2...")
+          .action( (x, c) => c.copy(values = Option.apply(x)) )
+          .text("other arguments")
       )
 
 
@@ -67,4 +69,4 @@ object Commands {
 
 }
 
-case class Command(action: Option[String] = Option.empty, options: Option[String]= Option.empty)
+case class Command(action: Option[String] = Option.empty, options: Option[String]= Option.empty, values: Option[Map[String, String]] = Option.empty)
